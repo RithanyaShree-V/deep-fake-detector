@@ -1,0 +1,45 @@
+# Deep Fake Detection - Requirements
+# ===================================
+
+# Web Framework
+flask==3.0.0
+flask-cors==4.0.0
+werkzeug==3.0.1
+
+# Machine Learning - PyTorch
+torch>=2.0.0
+torchvision>=0.15.0
+timm==0.9.12  # PyTorch Image Models (EfficientNet, etc.)
+
+# Image Processing
+opencv-python==4.9.0.80
+Pillow>=10.0.0
+numpy>=1.24.0
+
+# Face Detection
+facenet-pytorch==2.5.3  # MTCNN for face detection
+# dlib==19.24.2  # Alternative face detection (requires Visual Studio C++ to build)
+
+# Visualization & Explainability
+matplotlib>=3.7.0
+grad-cam==1.4.8  # For Grad-CAM visualizations
+
+# Video Processing
+imageio[ffmpeg]==2.33.1
+moviepy==1.0.3
+
+# PDF Report Generation
+reportlab==4.0.8
+PyPDF2==3.0.1
+
+# Utilities
+tqdm>=4.65.0
+python-dotenv==1.0.0
+requests>=2.31.0
+
+# For model downloading
+gdown==5.1.0
+huggingface-hub>=0.20.0
+
+# Optional: GPU monitoring
+# gpustat==1.1.1

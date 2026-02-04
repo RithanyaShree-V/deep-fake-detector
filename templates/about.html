@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - DeepFake Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <i class="fas fa-shield-halved"></i>
+                <span>DeepFake Detector</span>
+            </a>
+            <div class="nav-links">
+                <a href="/" class="nav-link">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="/about" class="nav-link active">
+                    <i class="fas fa-info-circle"></i> About
+                </a>
+                <a href="/api-docs" class="nav-link">
+                    <i class="fas fa-code"></i> API
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- About Content -->
+    <main class="main-content about-page">
+        <div class="container">
+            <div class="about-header">
+                <h1><i class="fas fa-shield-halved"></i> About DeepFake Detector</h1>
+                <p class="lead">An AI-powered solution for detecting manipulated media and protecting against misinformation.</p>
+            </div>
+
+            <!-- Technology Section -->
+            <section class="about-section">
+                <h2><i class="fas fa-microchip"></i> Our Technology</h2>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <div class="tech-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>Deep Learning</h3>
+                        <p>We use state-of-the-art EfficientNet-based neural networks trained to detect subtle manipulation artifacts in images and videos.</p>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon">
+                            <i class="fas fa-face-smile"></i>
+                        </div>
+                        <h3>Face Detection</h3>
+                        <p>MTCNN face detection identifies and extracts facial regions for focused analysis of potential deepfake manipulations.</p>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h3>Explainability</h3>
+                        <p>Grad-CAM visualizations show exactly which regions of the image influenced the AI's decision, making our results interpretable.</p>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <h3>Video Analysis</h3>
+                        <p>Frame sampling and batch processing enable efficient analysis of video content with frame-by-frame breakdown.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Detection Types -->
+            <section class="about-section">
+                <h2><i class="fas fa-search"></i> What We Detect</h2>
+                <div class="detection-types">
+                    <div class="detection-card">
+                        <div class="detection-icon fake">
+                            <i class="fas fa-mask"></i>
+                        </div>
+                        <h3>Deepfake Faces</h3>
+                        <p>Face swaps, facial reenactment, and other AI-based face manipulation techniques used in deepfake videos.</p>
+                        <ul>
+                            <li>Face swapping (FaceSwap, DeepFaceLab)</li>
+                            <li>Facial reenactment</li>
+                            <li>Lip sync manipulation</li>
+                            <li>Expression transfer</li>
+                        </ul>
+                    </div>
+                    <div class="detection-card">
+                        <div class="detection-icon ai-gen">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3>AI-Generated Images</h3>
+                        <p>Images created entirely by generative AI models including GANs and diffusion models.</p>
+                        <ul>
+                            <li>GAN-generated faces (StyleGAN, etc.)</li>
+                            <li>Diffusion model outputs (DALL-E, Midjourney, Stable Diffusion)</li>
+                            <li>AI art generators</li>
+                            <li>Neural style transfers</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- How It Works -->
+            <section class="about-section">
+                <h2><i class="fas fa-cogs"></i> How It Works</h2>
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Upload</h3>
+                            <p>Upload your image or video file through our secure interface. We accept JPG, PNG, WEBP images and MP4, AVI, MOV videos.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Preprocessing</h3>
+                            <p>The media is preprocessed, faces are detected and extracted, and frames are sampled for video content.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>AI Analysis</h3>
+                            <p>Multiple neural networks analyze the content for deepfake signatures and AI-generation artifacts.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>Results</h3>
+                            <p>Receive detailed results with confidence scores, visual explanations, and a downloadable PDF report.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Ethical Use -->
+            <section class="about-section ethics-section">
+                <h2><i class="fas fa-balance-scale"></i> Ethical Use & Disclaimer</h2>
+                <div class="ethics-content">
+                    <div class="ethics-card important">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Important Notice</h3>
+                        <p>This tool provides <strong>probabilistic assessments</strong> based on AI analysis. Results should not be considered legally definitive or used as the sole basis for important decisions.</p>
+                    </div>
+                    
+                    <div class="ethics-guidelines">
+                        <h3>Responsible Use Guidelines</h3>
+                        <div class="guidelines-grid">
+                            <div class="guideline do">
+                                <h4><i class="fas fa-check-circle"></i> DO</h4>
+                                <ul>
+                                    <li>Use for detecting potential misinformation</li>
+                                    <li>Verify media authenticity before sharing</li>
+                                    <li>Use as one tool among multiple verification methods</li>
+                                    <li>Report findings responsibly</li>
+                                    <li>Respect privacy and consent laws</li>
+                                </ul>
+                            </div>
+                            <div class="guideline dont">
+                                <h4><i class="fas fa-times-circle"></i> DON'T</h4>
+                                <ul>
+                                    <li>Use results as legal evidence without expert verification</li>
+                                    <li>Make accusations based solely on AI analysis</li>
+                                    <li>Harass or defame individuals based on results</li>
+                                    <li>Use for unauthorized surveillance</li>
+                                    <li>Violate others' privacy rights</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ethics-card">
+                        <h3><i class="fas fa-gavel"></i> Legal Disclaimer</h3>
+                        <p>This software is provided "as is" without warranty of any kind. The developers are not responsible for any misuse or misinterpretation of results. Users are solely responsible for ensuring their use complies with applicable laws and regulations.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Limitations -->
+            <section class="about-section">
+                <h2><i class="fas fa-exclamation-circle"></i> Known Limitations</h2>
+                <div class="limitations-list">
+                    <div class="limitation-item">
+                        <i class="fas fa-compress-arrows-alt"></i>
+                        <div>
+                            <h4>Compression Artifacts</h4>
+                            <p>Heavily compressed images may produce less accurate results due to lost detail.</p>
+                        </div>
+                    </div>
+                    <div class="limitation-item">
+                        <i class="fas fa-expand"></i>
+                        <div>
+                            <h4>Low Resolution</h4>
+                            <p>Very low resolution images or videos may lack sufficient detail for accurate detection.</p>
+                        </div>
+                    </div>
+                    <div class="limitation-item">
+                        <i class="fas fa-sync"></i>
+                        <div>
+                            <h4>Novel Techniques</h4>
+                            <p>New deepfake generation methods may not be detected until models are updated.</p>
+                        </div>
+                    </div>
+                    <div class="limitation-item">
+                        <i class="fas fa-percentage"></i>
+                        <div>
+                            <h4>Edge Cases</h4>
+                            <p>Unusual lighting, angles, or artistic styles may affect accuracy.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact -->
+            <section class="about-section">
+                <h2><i class="fas fa-envelope"></i> Contact & Support</h2>
+                <div class="contact-info">
+                    <p>For questions, feedback, or support, please reach out through the following channels:</p>
+                    <div class="contact-links">
+                        <a href="https://github.com" target="_blank" class="contact-link">
+                            <i class="fab fa-github"></i> GitHub Repository
+                        </a>
+                        <a href="/api-docs" class="contact-link">
+                            <i class="fas fa-book"></i> API Documentation
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <i class="fas fa-shield-halved"></i>
+                    <span>DeepFake Detector</span>
+                </div>
+                <p class="footer-copy">&copy; 2026 DeepFake Detector. Built for responsible AI use.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

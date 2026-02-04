@@ -1,0 +1,206 @@
+{
+  "timestamp": "2026-02-04T23:05:13.346210",
+  "dataset": {
+    "real_dir": "test_data\\real",
+    "fake_dir": "test_data\\fake",
+    "real_count": 10,
+    "fake_count": 10
+  },
+  "metrics": {
+    "total_samples": 20,
+    "true_positives": 10,
+    "true_negatives": 0,
+    "false_positives": 10,
+    "false_negatives": 0,
+    "accuracy": 0.5,
+    "precision": 0.5,
+    "recall": 1.0,
+    "f1_score": 0.6666666666666666,
+    "specificity": 0.0,
+    "false_positive_rate": 1.0,
+    "false_negative_rate": 0.0
+  },
+  "detailed_results": [
+    {
+      "path": "test_data\\real\\real_sample_1.jpg",
+      "ground_truth": "real",
+      "predicted": "fake",
+      "correct": false,
+      "confidence": 0.5008542537689209,
+      "deepfake_score": 0.5008475184440613,
+      "ai_generated_score": 0.5008542537689209
+    },
+    {
+      "path": "test_data\\real\\real_sample_1.jpg",
+      "ground_truth": "real",
+      "predicted": "fake",
+      "correct": false,
+      "confidence": 0.5008542537689209,
+      "deepfake_score": 0.5008475184440613,
+      "ai_generated_score": 0.5008542537689209
+    },
+    {
+      "path": "test_data\\real\\real_sample_2.jpg",
+      "ground_truth": "real",
+      "predicted": "fake",
+      "correct": false,
+      "confidence": 0.5088050961494446,
+      "deepfake_score": 0.5011165738105774,
+      "ai_generated_score": 0.5088050961494446
+    },
+    {
+      "path": "test_data\\real\\real_sample_2.jpg",
+      "ground_truth": "real",
+      "predicted": "fake",
+      "correct": false,
+      "confidence": 0.5088050961494446,
+      "deepfake_score": 0.5011165738105774,
+      "ai_generated_score": 0.5088050961494446
+    },
+    {
+      "path": "test_data\\real\\real_sample_3.jpg",
+      "ground_truth": "real",
+      "predicted": "fake",
+      "correct": false,
+      "confidence": 0.5104921460151672,
+      "deepfake_score": 0.5082805752754211,
+      "ai_generated_score": 0.5104921460151672
+    },
+    {
+      "path": "test_data\\real\\real_sample_3.jpg",
+      "ground_truth": "real",
+      "predicted": "fake",
+      "correct": false,
+      "confidence": 0.5104921460151672,
+      "deepfake_score": 0.5082805752754211,
+      "ai_generated_score": 0.5104921460151672
+    },
+    {
+      "path": "test_data\\real\\real_sample_4.jpg",
+      "ground_truth": "real",
+      "predicted": "fake",
+      "correct": false,
+      "confidence": 0.5073845982551575,
+      "deepfake_score": 0.5073845982551575,
+      "ai_generated_score": 0.5053460001945496
+    },
+    {
+      "path": "test_data\\real\\real_sample_4.jpg",
+      "ground_truth": "real",
+      "predicted": "fake",
+      "correct": false,
+      "confidence": 0.5073845982551575,
+      "deepfake_score": 0.5073845982551575,
+      "ai_generated_score": 0.5053460001945496
+    },
+    {
+      "path": "test_data\\real\\real_sample_5.jpg",
+      "ground_truth": "real",
+      "predicted": "fake",
+      "correct": false,
+      "confidence": 0.5092652440071106,
+      "deepfake_score": 0.5084320306777954,
+      "ai_generated_score": 0.5092652440071106
+    },
+    {
+      "path": "test_data\\real\\real_sample_5.jpg",
+      "ground_truth": "real",
+      "predicted": "fake",
+      "correct": false,
+      "confidence": 0.5092652440071106,
+      "deepfake_score": 0.5084320306777954,
+      "ai_generated_score": 0.5092652440071106
+    },
+    {
+      "path": "test_data\\fake\\fake_sample_1.jpg",
+      "ground_truth": "fake",
+      "predicted": "fake",
+      "correct": true,
+      "confidence": 0.5088492035865784,
+      "deepfake_score": 0.5088492035865784,
+      "ai_generated_score": 0.5041458010673523
+    },
+    {
+      "path": "test_data\\fake\\fake_sample_1.jpg",
+      "ground_truth": "fake",
+      "predicted": "fake",
+      "correct": true,
+      "confidence": 0.5088492035865784,
+      "deepfake_score": 0.5088492035865784,
+      "ai_generated_score": 0.5041458010673523
+    },
+    {
+      "path": "test_data\\fake\\fake_sample_2.jpg",
+      "ground_truth": "fake",
+      "predicted": "fake",
+      "correct": true,
+      "confidence": 0.5138309597969055,
+      "deepfake_score": 0.5138309597969055,
+      "ai_generated_score": 0.5040212869644165
+    },
+    {
+      "path": "test_data\\fake\\fake_sample_2.jpg",
+      "ground_truth": "fake",
+      "predicted": "fake",
+      "correct": true,
+      "confidence": 0.5138309597969055,
+      "deepfake_score": 0.5138309597969055,
+      "ai_generated_score": 0.5040212869644165
+    },
+    {
+      "path": "test_data\\fake\\fake_sample_3.jpg",
+      "ground_truth": "fake",
+      "predicted": "fake",
+      "correct": true,
+      "confidence": 0.5146714448928833,
+      "deepfake_score": 0.5146714448928833,
+      "ai_generated_score": 0.5033827424049377
+    },
+    {
+      "path": "test_data\\fake\\fake_sample_3.jpg",
+      "ground_truth": "fake",
+      "predicted": "fake",
+      "correct": true,
+      "confidence": 0.5146714448928833,
+      "deepfake_score": 0.5146714448928833,
+      "ai_generated_score": 0.5033827424049377
+    },
+    {
+      "path": "test_data\\fake\\fake_sample_4.jpg",
+      "ground_truth": "fake",
+      "predicted": "fake",
+      "correct": true,
+      "confidence": 0.5069921612739563,
+      "deepfake_score": 0.5069921612739563,
+      "ai_generated_score": 0.5042896866798401
+    },
+    {
+      "path": "test_data\\fake\\fake_sample_4.jpg",
+      "ground_truth": "fake",
+      "predicted": "fake",
+      "correct": true,
+      "confidence": 0.5069921612739563,
+      "deepfake_score": 0.5069921612739563,
+      "ai_generated_score": 0.5042896866798401
+    },
+    {
+      "path": "test_data\\fake\\fake_sample_5.jpg",
+      "ground_truth": "fake",
+      "predicted": "fake",
+      "correct": true,
+      "confidence": 0.5152905583381653,
+      "deepfake_score": 0.5152905583381653,
+      "ai_generated_score": 0.5044296979904175
+    },
+    {
+      "path": "test_data\\fake\\fake_sample_5.jpg",
+      "ground_truth": "fake",
+      "predicted": "fake",
+      "correct": true,
+      "confidence": 0.5152905583381653,
+      "deepfake_score": 0.5152905583381653,
+      "ai_generated_score": 0.5044296979904175
+    }
+  ],
+  "errors": []
+}

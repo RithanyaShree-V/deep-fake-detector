@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation - DeepFake Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <i class="fas fa-shield-halved"></i>
+                <span>DeepFake Detector</span>
+            </a>
+            <div class="nav-links">
+                <a href="/" class="nav-link">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="/about" class="nav-link">
+                    <i class="fas fa-info-circle"></i> About
+                </a>
+                <a href="/api-docs" class="nav-link active">
+                    <i class="fas fa-code"></i> API
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- API Docs Content -->
+    <main class="main-content api-docs-page">
+        <div class="container">
+            <div class="api-header">
+                <h1><i class="fas fa-code"></i> API Documentation</h1>
+                <p class="lead">Integrate deepfake detection into your applications using our REST API.</p>
+                <div class="api-badge">
+                    <span class="version">v1.0</span>
+                    <span class="status online"><i class="fas fa-circle"></i> Online</span>
+                </div>
+            </div>
+
+            <!-- Quick Start -->
+            <section class="api-section">
+                <h2><i class="fas fa-rocket"></i> Quick Start</h2>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>cURL Example</span>
+                        <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i></button>
+                    </div>
+                    <pre><code>curl -X POST http://localhost:5000/api/analyze/image \
+  -F "file=@/path/to/image.jpg" \
+  -F "generate_heatmap=true"</code></pre>
+                </div>
+            </section>
+
+            <!-- Base URL -->
+            <section class="api-section">
+                <h2><i class="fas fa-link"></i> Base URL</h2>
+                <div class="base-url">
+                    <code>http://localhost:5000</code>
+                </div>
+            </section>
+
+            <!-- Endpoints -->
+            <section class="api-section">
+                <h2><i class="fas fa-route"></i> Endpoints</h2>
+
+                <!-- Image Analysis -->
+                <div class="endpoint-card">
+                    <div class="endpoint-header">
+                        <span class="method post">POST</span>
+                        <span class="path">/api/analyze/image</span>
+                    </div>
+                    <p class="endpoint-desc">Analyze a single image for deepfake or AI-generated content.</p>
+                    
+                    <h4>Request Parameters</h4>
+                    <table class="params-table">
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Type</th>
+                                <th>Required</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>file</code></td>
+                                <td>File</td>
+                                <td>Yes</td>
+                                <td>Image file (JPG, PNG, WEBP)</td>
+                            </tr>
+                            <tr>
+                                <td><code>generate_heatmap</code></td>
+                                <td>Boolean</td>
+                                <td>No</td>
+                                <td>Generate Grad-CAM heatmap (default: true)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4>Response</h4>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>JSON Response</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i></button>
+                        </div>
+                        <pre><code>{
+  "success": true,
+  "filename": "image.jpg",
+  "result": {
+    "prediction": "Deepfake",
+    "confidence": 87.5,
+    "probabilities": {
+      "Real (Deepfake Model)": 12.5,
+      "Deepfake": 87.5,
+      "Real (AI Model)": 45.2,
+      "AI-Generated": 54.8
+    },
+    "face_detected": true,
+    "face_regions": [
+      {
+        "box": [100, 50, 300, 280],
+        "confidence": 0.98
+      }
+    ],
+    "heatmap_path": "/static/heatmaps/heatmap_abc123.jpg",
+    "explanation": "The model detected potential face manipulation...",
+    "artifacts": [
+      "High probability of facial manipulation",
+      "Check for unnatural blending around face edges"
+    ],
+    "timestamp": "2026-02-04T10:30:00"
+  }
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- Video Analysis -->
+                <div class="endpoint-card">
+                    <div class="endpoint-header">
+                        <span class="method post">POST</span>
+                        <span class="path">/api/analyze/video</span>
+                    </div>
+                    <p class="endpoint-desc">Analyze a video for deepfake content with frame-by-frame analysis.</p>
+                    
+                    <h4>Request Parameters</h4>
+                    <table class="params-table">
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Type</th>
+                                <th>Required</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>file</code></td>
+                                <td>File</td>
+                                <td>Yes</td>
+                                <td>Video file (MP4, AVI, MOV, WEBM)</td>
+                            </tr>
+                            <tr>
+                                <td><code>sample_rate</code></td>
+                                <td>Integer</td>
+                                <td>No</td>
+                                <td>Analyze every Nth frame (default: 10)</td>
+                            </tr>
+                            <tr>
+                                <td><code>max_frames</code></td>
+                                <td>Integer</td>
+                                <td>No</td>
+                                <td>Maximum frames to analyze (default: 100)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4>Response</h4>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>JSON Response</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i></button>
+                        </div>
+                        <pre><code>{
+  "success": true,
+  "filename": "video.mp4",
+  "result": {
+    "overall_prediction": "Deepfake",
+    "overall_confidence": 75.3,
+    "frames_analyzed": 50,
+    "total_frames": 500,
+    "suspicious_frames": 38,
+    "suspicious_percentage": 76.0,
+    "video_info": {
+      "fps": 30,
+      "duration_seconds": 16.67,
+      "resolution": "1920x1080"
+    },
+    "frame_results": [
+      {
+        "frame_index": 0,
+        "prediction": "Deepfake",
+        "confidence": 82.1,
+        "deepfake_score": 82.1,
+        "ai_generated_score": 45.3
+      }
+    ],
+    "summary": "Analyzed 50 frames from a 16.7s video..."
+  }
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- Batch Analysis -->
+                <div class="endpoint-card">
+                    <div class="endpoint-header">
+                        <span class="method post">POST</span>
+                        <span class="path">/api/analyze/batch</span>
+                    </div>
+                    <p class="endpoint-desc">Analyze multiple files in a single request.</p>
+                    
+                    <h4>Request Parameters</h4>
+                    <table class="params-table">
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Type</th>
+                                <th>Required</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>files[]</code></td>
+                                <td>Files</td>
+                                <td>Yes</td>
+                                <td>Array of image/video files</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4>Response</h4>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>JSON Response</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i></button>
+                        </div>
+                        <pre><code>{
+  "success": true,
+  "total": 3,
+  "successful": 3,
+  "results": [
+    {
+      "filename": "image1.jpg",
+      "success": true,
+      "type": "image",
+      "result": { ... }
+    },
+    {
+      "filename": "image2.png",
+      "success": true,
+      "type": "image",
+      "result": { ... }
+    }
+  ]
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- Generate Report -->
+                <div class="endpoint-card">
+                    <div class="endpoint-header">
+                        <span class="method post">POST</span>
+                        <span class="path">/api/report/generate</span>
+                    </div>
+                    <p class="endpoint-desc">Generate a PDF report for the last analysis result.</p>
+                    
+                    <h4>Response</h4>
+                    <p>Returns a PDF file download.</p>
+                </div>
+
+                <!-- Status -->
+                <div class="endpoint-card">
+                    <div class="endpoint-header">
+                        <span class="method get">GET</span>
+                        <span class="path">/api/status</span>
+                    </div>
+                    <p class="endpoint-desc">Get API status and system information.</p>
+                    
+                    <h4>Response</h4>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>JSON Response</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i></button>
+                        </div>
+                        <pre><code>{
+  "status": "online",
+  "version": "1.0.0",
+  "gpu_available": true,
+  "gpu_name": "NVIDIA GeForce RTX 3080",
+  "models_loaded": true,
+  "supported_formats": {
+    "images": ["jpg", "jpeg", "png", "webp"],
+    "videos": ["mp4", "avi", "mov", "webm"]
+  },
+  "max_file_size_mb": 100
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- Health Check -->
+                <div class="endpoint-card">
+                    <div class="endpoint-header">
+                        <span class="method get">GET</span>
+                        <span class="path">/api/health</span>
+                    </div>
+                    <p class="endpoint-desc">Simple health check endpoint.</p>
+                    
+                    <h4>Response</h4>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>JSON Response</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i></button>
+                        </div>
+                        <pre><code>{
+  "status": "healthy",
+  "timestamp": "2026-02-04T10:30:00"
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Error Handling -->
+            <section class="api-section">
+                <h2><i class="fas fa-exclamation-triangle"></i> Error Handling</h2>
+                <p>All endpoints return consistent error responses:</p>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Error Response</span>
+                    </div>
+                    <pre><code>{
+  "success": false,
+  "error": "Description of the error",
+  "message": "Additional context if available"
+}</code></pre>
+                </div>
+
+                <h4>HTTP Status Codes</h4>
+                <table class="params-table">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>200</code></td>
+                            <td>Success</td>
+                        </tr>
+                        <tr>
+                            <td><code>400</code></td>
+                            <td>Bad Request - Invalid parameters</td>
+                        </tr>
+                        <tr>
+                            <td><code>413</code></td>
+                            <td>File Too Large</td>
+                        </tr>
+                        <tr>
+                            <td><code>500</code></td>
+                            <td>Internal Server Error</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Code Examples -->
+            <section class="api-section">
+                <h2><i class="fas fa-laptop-code"></i> Code Examples</h2>
+
+                <div class="code-example">
+                    <h4>Python</h4>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Python requests</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i></button>
+                        </div>
+                        <pre><code>import requests
+
+url = "http://localhost:5000/api/analyze/image"
+files = {"file": open("image.jpg", "rb")}
+data = {"generate_heatmap": "true"}
+
+response = requests.post(url, files=files, data=data)
+result = response.json()
+
+if result["success"]:
+    print(f"Prediction: {result['result']['prediction']}")
+    print(f"Confidence: {result['result']['confidence']}%")
+else:
+    print(f"Error: {result['error']}")</code></pre>
+                    </div>
+                </div>
+
+                <div class="code-example">
+                    <h4>JavaScript (Fetch)</h4>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>JavaScript fetch</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i></button>
+                        </div>
+                        <pre><code>const formData = new FormData();
+formData.append('file', fileInput.files[0]);
+formData.append('generate_heatmap', 'true');
+
+fetch('/api/analyze/image', {
+    method: 'POST',
+    body: formData
+})
+.then(response => response.json())
+.then(data => {
+    if (data.success) {
+        console.log('Prediction:', data.result.prediction);
+        console.log('Confidence:', data.result.confidence + '%');
+    } else {
+        console.error('Error:', data.error);
+    }
+});</code></pre>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <i class="fas fa-shield-halved"></i>
+                    <span>DeepFake Detector</span>
+                </div>
+                <p class="footer-copy">&copy; 2026 DeepFake Detector. Built for responsible AI use.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-block');
+            const code = codeBlock.querySelector('code').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                button.innerHTML = '<i class="fas fa-check"></i>';
+                setTimeout(() => {
+                    button.innerHTML = '<i class="fas fa-copy"></i>';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

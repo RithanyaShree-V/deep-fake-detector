@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Results - DeepFake Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <i class="fas fa-shield-halved"></i>
+                <span>DeepFake Detector</span>
+            </a>
+            <div class="nav-links">
+                <a href="/" class="nav-link">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="/about" class="nav-link">
+                    <i class="fas fa-info-circle"></i> About
+                </a>
+                <a href="/api-docs" class="nav-link">
+                    <i class="fas fa-code"></i> API
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Results Page Content -->
+    <main class="main-content results-page">
+        <div class="container">
+            <div class="results-header">
+                <h1><i class="fas fa-chart-line"></i> Analysis Results</h1>
+                <p>Detailed breakdown of the deepfake detection analysis</p>
+            </div>
+
+            <!-- Results will be populated by JavaScript or session data -->
+            <div class="results-container" id="results-container">
+                <div class="no-results">
+                    <i class="fas fa-search"></i>
+                    <h3>No Results Available</h3>
+                    <p>Please upload and analyze a file first.</p>
+                    <a href="/" class="btn btn-primary">
+                        <i class="fas fa-upload"></i> Upload File
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <i class="fas fa-shield-halved"></i>
+                    <span>DeepFake Detector</span>
+                </div>
+                <p class="footer-copy">&copy; 2026 DeepFake Detector. Built for responsible AI use.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        // Check for stored results on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const storedResult = sessionStorage.getItem('analysisResult');
+            if (storedResult) {
+                const result = JSON.parse(storedResult);
+                displayDetailedResults(result);
+            }
+        });
+
+        function displayDetailedResults(data) {
+            const container = document.getElementById('results-container');
+            const result = data.result;
+            const isVideo = data.type === 'video';
+
+            let html = `
+                <div class="result-card ${result.prediction ? result.prediction.toLowerCase().replace('-', '') : result.overall_prediction.toLowerCase().replace('-', '')}">
+                    <div class="result-header">
+                        <div class="result-badge ${getPredictionClass(isVideo ? result.overall_prediction : result.prediction)}">
+                            ${getResultIcon(isVideo ? result.overall_prediction : result.prediction)}
+                            <span>${isVideo ? result.overall_prediction : result.prediction}</span>
+                        </div>
+                        <div class="result-confidence">
+                            <span class="confidence-value">${isVideo ? result.overall_confidence : result.confidence}%</span>
+                            <span class="confidence-label">Confidence</span>
+                        </div>
+                    </div>
+
+                    <div class="result-details">
+                        <h3><i class="fas fa-file"></i> File Information</h3>
+                        <p><strong>Filename:</strong> ${data.filename}</p>
+                        <p><strong>Type:</strong> ${data.type.charAt(0).toUpperCase() + data.type.slice(1)}</p>
+                        <p><strong>Analyzed:</strong> ${new Date().toLocaleString()}</p>
+                    </div>
+            `;
+
+            if (isVideo) {
+                html += `
+                    <div class="result-details">
+                        <h3><i class="fas fa-video"></i> Video Analysis</h3>
+                        <div class="stats-grid">
+                            <div class="stat-box">
+                                <span class="stat-number">${result.frames_analyzed}</span>
+                                <span class="stat-text">Frames Analyzed</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-number">${result.suspicious_frames}</span>
+                                <span class="stat-text">Suspicious Frames</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-number">${result.suspicious_percentage}%</span>
+                                <span class="stat-text">Suspicious Rate</span>
+                            </div>
+                        </div>
+                        <p class="summary-text">${result.summary}</p>
+                    </div>
+
+                    <div class="result-details">
+                        <h3><i class="fas fa-chart-bar"></i> Frame-by-Frame Analysis</h3>
+                        <div class="frame-results-chart" id="frame-chart"></div>
+                        <div class="frame-list">
+                            ${generateFrameList(result.frame_results)}
+                        </div>
+                    </div>
+                `;
+            } else {
+                html += `
+                    <div class="result-details">
+                        <h3><i class="fas fa-percentage"></i> Probability Scores</h3>
+                        <div class="probability-bars">
+                            ${generateProbabilityBars(result.probabilities)}
+                        </div>
+                    </div>
+
+                    ${result.heatmap_path ? `
+                        <div class="result-details">
+                            <h3><i class="fas fa-fire"></i> Attention Heatmap</h3>
+                            <p class="heatmap-desc">Areas highlighted in red indicate regions the AI focused on for its decision.</p>
+                            <img src="${result.heatmap_path}" alt="Heatmap" class="heatmap-image">
+                        </div>
+                    ` : ''}
+
+                    <div class="result-details">
+                        <h3><i class="fas fa-face-smile"></i> Face Detection</h3>
+                        <p>${result.face_detected ? `${result.face_regions.length} face(s) detected and analyzed` : 'No faces detected in image'}</p>
+                    </div>
+                `;
+            }
+
+            html += `
+                <div class="result-details">
+                    <h3><i class="fas fa-lightbulb"></i> Explanation</h3>
+                    <p class="explanation-text">${result.explanation || result.summary}</p>
+                </div>
+
+                ${result.artifacts && result.artifacts.length > 0 ? `
+                    <div class="result-details">
+                        <h3><i class="fas fa-search-plus"></i> Detected Artifacts</h3>
+                        <ul class="artifacts-list">
+                            ${result.artifacts.map(a => `<li><i class="fas fa-check-circle"></i> ${a}</li>`).join('')}
+                        </ul>
+                    </div>
+                ` : ''}
+
+                <div class="result-actions">
+                    <button class="btn btn-primary" onclick="downloadReport()">
+                        <i class="fas fa-file-pdf"></i> Download Report
+                    </button>
+                    <a href="/" class="btn btn-outline">
+                        <i class="fas fa-redo"></i> Analyze Another
+                    </a>
+                </div>
+            </div>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        function getPredictionClass(prediction) {
+            switch(prediction.toLowerCase()) {
+                case 'real': return 'real';
+                case 'deepfake': return 'fake';
+                case 'ai-generated': return 'ai-gen';
+                default: return '';
+            }
+        }
+
+        function getResultIcon(prediction) {
+            switch(prediction.toLowerCase()) {
+                case 'real': return '<i class="fas fa-check-circle"></i>';
+                case 'deepfake': return '<i class="fas fa-mask"></i>';
+                case 'ai-generated': return '<i class="fas fa-robot"></i>';
+                default: return '<i class="fas fa-question-circle"></i>';
+            }
+        }
+
+        function generateProbabilityBars(probabilities) {
+            let html = '';
+            for (const [label, value] of Object.entries(probabilities)) {
+                const barClass = label.toLowerCase().includes('real') ? 'real' : 
+                               label.toLowerCase().includes('deepfake') ? 'fake' : 'ai-gen';
+                html += `
+                    <div class="prob-item">
+                        <div class="prob-label">${label}</div>
+                        <div class="prob-bar-container">
+                            <div class="prob-bar ${barClass}" style="width: ${value}%"></div>
+                        </div>
+                        <div class="prob-value">${value}%</div>
+                    </div>
+                `;
+            }
+            return html;
+        }
+
+        function generateFrameList(frames) {
+            if (!frames || frames.length === 0) return '<p>No frame data available</p>';
+            
+            const displayFrames = frames.slice(0, 20);
+            let html = '<div class="frame-items">';
+            
+            displayFrames.forEach(frame => {
+                const frameClass = frame.prediction === 'Real' ? 'real' : 
+                                  frame.prediction === 'Deepfake' ? 'fake' : 'ai-gen';
+                html += `
+                    <div class="frame-item ${frameClass}">
+                        <span class="frame-num">Frame ${frame.frame_index}</span>
+                        <span class="frame-pred">${frame.prediction}</span>
+                        <span class="frame-conf">${frame.confidence}%</span>
+                    </div>
+                `;
+            });
+            
+            if (frames.length > 20) {
+                html += `<p class="more-frames">... and ${frames.length - 20} more frames</p>`;
+            }
+            
+            html += '</div>';
+            return html;
+        }
+
+        async function downloadReport() {
+            try {
+                const response = await fetch('/api/report/generate', {
+                    method: 'POST'
+                });
+                
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'deepfake_report.pdf';
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    a.remove();
+                } else {
+                    alert('Failed to generate report');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error generating report');
+            }
+        }
+    </script>
+</body>
+</html>
